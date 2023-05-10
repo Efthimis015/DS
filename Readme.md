@@ -17,3 +17,19 @@ Data analysis is a process of inspecting, cleansing, transforming, and modeling 
 Data mining is a particular data analysis technique that focuses on statistical modeling and knowledge discovery for predictive rather than purely descriptive purposes, while business intelligence covers data analysis that relies heavily on aggregation, focusing mainly on business information.[4] In statistical applications, data analysis can be divided into descriptive statistics, exploratory data analysis (EDA), and confirmatory data analysis (CDA).[5] EDA focuses on discovering new features in the data while CDA focuses on confirming or falsifying existing hypotheses.[6][7] Predictive analytics focuses on the application of statistical models for predictive forecasting or classification, while text analytics applies statistical, linguistic, and structural techniques to extract and classify information from textual sources, a species of unstructured data. All of the above are varieties of data analysis.[8]
 
 Data integration is a precursor to data analysis, and data analysis is closely linked to data visualization and data dissemination.[9]
+
+with open('sorting_runtimes.txt', 'r') as file:
+    data = file.read().splitlines()
+
+runtimes = {}
+
+for i in range(0, len(data), 8):
+    algorithm = data[i].split(' - ')[0]
+    runtime = float(data[i+1].split(' - ')[1].split(' ')[0])
+    runtimes[algorithm] = runtimes.get(algorithm, 0) + runtime
+
+for algorithm, runtime in runtimes.items():
+    avg_runtime = runtime / 10
+
+fastest_algorithm = min(runtimes.items(), key=lambda x: x[1])
+print(f"The fastest sorting algorithm is {fastest_algorithm[0]} with an average runtime of {fastest_algorithm[1]/10:.6f} seconds.")
